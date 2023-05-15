@@ -7,8 +7,8 @@
       "parserOptions": {
         "project": [
           "tsconfig.json",
-          "projects/ngx-treeview/tsconfig.lib.json",
-          "projects/ngx-treeview/tsconfig.spec.json"
+          "projects/terminology-treeview/tsconfig.lib.json",
+          "projects/terminology-treeview/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },

@@ -2,4 +2,8 @@ registry=https://registry.npmjs.org/
 @orbis-u:registry=https://diit-nex.eastus.cloudapp.azure.com/repository/npm-all/
 @nice:registry=https://diit-nex.eastus.cloudapp.azure.com/repository/npm-all/
 //diit-nex.eastus.cloudapp.azure.com/repository/npm-all/:_authToken=${DIIT_NEX_TOKEN}
+
+@diit:registry=https://diit-nex.eastus.cloudapp.azure.com/repository/orbisu-npm/
+//diit-nex.eastus.cloudapp.azure.com/repository/orbisu-npm/:_authToken=${NPM_PUSH_AUTH}
+
 #always-auth=true

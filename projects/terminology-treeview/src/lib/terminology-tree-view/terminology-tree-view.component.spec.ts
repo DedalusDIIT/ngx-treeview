@@ -8,9 +8,8 @@ describe('TerminologyTreeViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TerminologyTreeViewComponent ]
-    })
-    .compileComponents();
+      declarations: [TerminologyTreeViewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TerminologyTreeViewComponent);
     component = fixture.componentInstance;

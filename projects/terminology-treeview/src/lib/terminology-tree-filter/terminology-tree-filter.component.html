@@ -35,7 +35,7 @@
     [uTitle]="{ key: 'u.new-select.button' }"
     #toggleButton
     uAppend
-    *ngIf="edutrDisplayMode == 'overlay' && !edutrReadOnly"
+    *ngIf="edutrDisplayMode === 'overlay' && !edutrReadOnly"
     (mousedown)="onToggleButtonMouseDown($event)"
     (keydown)="onToggleButtonKeyDown($event)"
     [disabled]="edutrDisabled || edutrReadOnly"
