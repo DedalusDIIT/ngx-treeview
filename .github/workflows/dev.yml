@@ -11,6 +11,7 @@ env:
   NPM_USER: ${{ secrets.AZURE_ARTIFACT_PULL_USER }}
   NPM_PASSWORD: ${{ secrets.AZURE_ARTIFACT_PULL_PASSWORD }}
   NPM_PUSH_AUTH: ${{ secrets.DIIT_NEXUS_PUSH_AUTH }}
+  DIIT_NEX_TOKEN: ${{ secrets.DIIT_NEX_TOKEN }}
 
 jobs:
   build_and_test:
@@ -19,9 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: "lts/*"
+          cache: "npm"
+          cache-dependency-path: "package-lock.json"
 
       - name: Copy .npmrc Files
         uses: ./.github/actions/copy-npmrc
