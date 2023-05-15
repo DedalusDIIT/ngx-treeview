@@ -33,14 +33,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # - name: Install Angular CLI
-      #   run: npm install -g @angular/cli > /dev/null
+      - name: Lint
+        run: npm run lint:term
 
-      # - name: Lint
-      #  run: npm run lint:term
-
-      # - name: Test
-      #   run: npm run test:term
+      - name: Test
+        run: npm run test:term
 
       - name: Build Production
         run: npm run build:term:prod
