@@ -76,10 +76,12 @@ describe('DefaultTreeviewEventParser', () => {
         new TerminologyTreeviewItem({
           id: 'RID34257',
           meaning: 'fein-pleomorphe Verkalkung',
+          checked: true,
         }),
         new TerminologyTreeviewItem({
           id: 'RID34255',
           meaning: 'fein-lineare Verkalkung',
+          checked: true,
         }),
       ],
       uncheckedItems: undefined,
