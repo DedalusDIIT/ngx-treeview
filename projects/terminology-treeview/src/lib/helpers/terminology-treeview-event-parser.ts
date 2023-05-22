@@ -93,7 +93,7 @@ export class TerminologyOrderDownlineTreeviewEventParser extends TerminologyTree
         let foundIndex = -1;
         const length = newDownlines.length;
         for (let i = 0; i < length; i++) {
-          if (downline.item.meaning === newDownlines[i].item.meaning) {
+          if (downline.item.id === newDownlines[i].item.id) {
             foundIndex = i;
             break;
           }
