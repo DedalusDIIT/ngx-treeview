@@ -17,7 +17,9 @@
     [(ngModel)]="edutrFilterText"
     (ngModelChange)="onFilterTextChange($event)"
     [placeholder]="
-      translateService.instant(edutrReadOnly ? null : edutrPlaceholder)
+      edutrPlaceholder
+        ? translateService.instant(edutrReadOnly ? null : edutrPlaceholder)
+        : ''
     "
     [readonly]="edutrReadOnly || isMaxSelectionCountReached()"
     [disabled]="edutrDisabled"
