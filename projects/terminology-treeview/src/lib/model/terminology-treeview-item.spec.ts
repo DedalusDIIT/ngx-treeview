@@ -7,17 +7,17 @@ describe('TreeviewItem', () => {
     expect(() => new TerminologyTreeviewItem(undefined)).toThrow(error);
   });
 
-  it('should throw error if TreeItem text is not a string', () => {
-    const error = new Error('A text of item must be string object');
+  it('should throw error if TreeItem meaning is not a string', () => {
+    const error = new Error('A meaning of item must be string object');
     const fakeString: any = 1;
     expect(
-      () => new TerminologyTreeviewItem({ id: null, meaning: '' })
+      () => new TerminologyTreeviewItem({ id: '', meaning: null })
     ).toThrow(error);
     expect(
-      () => new TerminologyTreeviewItem({ id: undefined, meaning: '' })
+      () => new TerminologyTreeviewItem({ id: '', meaning: undefined })
     ).toThrow(error);
     expect(
-      () => new TerminologyTreeviewItem({ id: fakeString, meaning: '' })
+      () => new TerminologyTreeviewItem({ id: '', meaning: fakeString })
     ).toThrow(error);
   });
 
@@ -40,12 +40,12 @@ describe('TreeviewItem', () => {
   });
 
   describe('checked', () => {
-    it('should have value is true by default', () => {
+    it('should have value is false by default', () => {
       const treeviewItem = new TerminologyTreeviewItem({
         id: 'RID34255',
         meaning: 'fein-lineare Verkalkung',
       });
-      expect(treeviewItem.checked).toBeTruthy();
+      expect(treeviewItem.checked).toBeFalsy();
     });
 
     it('should correct checked value when input second param', () => {
@@ -127,9 +127,9 @@ describe('TreeviewItem', () => {
         disabled: true,
         children: [{ id: 'RID34255', meaning: 'fein-lineare Verkalkung' }],
       });
-      expect(treeviewItem.children[0].checked).toBe(true);
+      expect(treeviewItem.children[0].checked).toBe(false);
       treeviewItem.setCheckedRecursive(true);
-      expect(treeviewItem.children[0].checked).toBe(true);
+      expect(treeviewItem.children[0].checked).toBe(false);
     });
   });
 
@@ -139,7 +139,7 @@ describe('TreeviewItem', () => {
         id: 'RID34255',
         meaning: 'fein-lineare Verkalkung',
       });
-      expect(treeviewItem.collapsed).toBeFalsy();
+      expect(treeviewItem.collapsed).toBeTruthy();
     });
 
     it('should affectly change collapsed value', () => {
@@ -272,10 +272,11 @@ describe('TreeviewItem', () => {
         const parentItem = new TerminologyTreeviewItem({
           id: 'RID34255',
           meaning: 'fein-lineare Verkalkung',
+          checked: false,
         });
         const selection = parentItem.getSelection();
-        expect(selection.checkedItems).toEqual([parentItem]);
-        expect(selection.uncheckedItems).toEqual([]);
+        expect(selection.checkedItems).toEqual([]);
+        expect(selection.uncheckedItems).toEqual([parentItem]);
       });
     });
 

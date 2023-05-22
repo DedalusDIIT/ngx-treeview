@@ -3,27 +3,27 @@ import { TerminologyTreeviewItem } from '../model/terminology-treeview-item';
 import { TerminologyTreeviewHelper } from './terminology-treeview-helper';
 
 const rootNoChildren = new TerminologyTreeviewItem({
-  id: 'RID34255',
-  meaning: 'fein-lineare Verkalkung',
+  id: 'RID36008',
+  meaning: 'gutartiger Befund',
 });
 const rootHasChildren = new TerminologyTreeviewItem({
-  id: 'RID34255',
-  meaning: 'fein-lineare Verkalkung',
+  id: 'RID36008',
+  meaning: 'gutartiger Befund',
   checked: false,
   children: [
     {
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID4941',
+      meaning: 'Schwangerschaft',
       checked: true,
     },
     {
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID39555',
+      meaning: 'zusätzliche Schwangerschaft',
       checked: false,
       children: [
         {
-          id: 'RID34255',
-          meaning: 'fein-lineare Verkalkung',
+          id: 'RID39554',
+          meaning: 'Zwillingsschwangerschaft',
           checked: false,
         },
       ],
@@ -31,35 +31,35 @@ const rootHasChildren = new TerminologyTreeviewItem({
   ],
 });
 const fakeItem = new TerminologyTreeviewItem({
-  id: 'RID34255',
-  meaning: 'fein-lineare Verkalkung',
+  id: 'RID36008',
+  meaning: 'gutartiger Befund',
 });
 
 describe('findItem', () => {
   it('should not find item if root is null or undefined', () => {
     expect(
-      TerminologyTreeviewHelper.findTerminologyItem(undefined, 1)
+      TerminologyTreeviewHelper.findTerminologyItem(undefined, 'RID36008')
     ).toBeUndefined();
     expect(
-      TerminologyTreeviewHelper.findTerminologyItem(null, 1)
+      TerminologyTreeviewHelper.findTerminologyItem(null, 'RID36008')
     ).toBeUndefined();
   });
 
   it('should find item', () => {
     expect(
-      TerminologyTreeviewHelper.findTerminologyItem(rootNoChildren, 1)
+      TerminologyTreeviewHelper.findTerminologyItem(rootNoChildren, 'RID36008')
     ).toEqual(rootNoChildren);
     expect(
-      TerminologyTreeviewHelper.findTerminologyItem(rootHasChildren, 2)
+      TerminologyTreeviewHelper.findTerminologyItem(rootHasChildren, 'RID4941')
     ).toEqual(rootHasChildren.children[0]);
   });
 
   it('should not find item', () => {
     expect(
-      TerminologyTreeviewHelper.findTerminologyItem(rootNoChildren, 2)
+      TerminologyTreeviewHelper.findTerminologyItem(rootNoChildren, 'RID4941')
     ).toBeUndefined();
     expect(
-      TerminologyTreeviewHelper.findTerminologyItem(rootHasChildren, 0)
+      TerminologyTreeviewHelper.findTerminologyItem(rootHasChildren, 'RID4942')
     ).toBeUndefined();
   });
 });
@@ -67,17 +67,17 @@ describe('findItem', () => {
 describe('findItemInList', () => {
   it('should not find item if list is null or undefined', () => {
     expect(
-      TerminologyTreeviewHelper.findTerminologyItemInList(undefined, 1)
+      TerminologyTreeviewHelper.findTerminologyItemInList(undefined, 'RID36008')
     ).toBeUndefined();
     expect(
-      TerminologyTreeviewHelper.findTerminologyItemInList(null, 1)
+      TerminologyTreeviewHelper.findTerminologyItemInList(null, 'RID36008')
     ).toBeUndefined();
   });
 
   it('should find item', () => {
     const list = [rootNoChildren, rootHasChildren];
     expect(
-      TerminologyTreeviewHelper.findTerminologyItemInList(list, 2)
+      TerminologyTreeviewHelper.findTerminologyItemInList(list, 'RID4941')
     ).toEqual(rootHasChildren.children[0]);
   });
 

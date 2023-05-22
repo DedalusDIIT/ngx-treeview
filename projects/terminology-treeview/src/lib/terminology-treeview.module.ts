@@ -5,12 +5,10 @@ import { DropdownModule } from '@orbis-u/components/dropdown';
 import { BadgeModule } from '@orbis-u/components/badge';
 import { InputModule } from '@orbis-u/components/input';
 import { IconModule } from '@orbis-u/components/icons';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from '@orbis-u/components/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkModule } from '@orbis-u/common/cdk';
 import { AutomationIdModule } from '@orbis-u/common';
-import { I18NewModule } from '@orbis-u/i18n';
 import { TerminologyTreeViewItemComponent } from './terminology-tree-view/terminology-tree-view-item/terminology-tree-view-item.component';
 import {
   TerminologyDefaultTreeviewI18n,
@@ -25,6 +23,7 @@ import { TerminologyTreeFilterComponent } from './terminology-tree-filter/termin
 import { NewSelectModule } from '@orbis-u/components/new-select';
 import { CheckboxModule } from '@orbis-u/components/checkbox';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -44,9 +43,9 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     InputModule,
     IconModule,
-    I18NewModule,
     NewSelectModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   providers: [
     TreeviewConfig,

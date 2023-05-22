@@ -51,6 +51,7 @@ import { TerminologyTreeviewItem } from '../model/terminology-treeview-item';
 import { TreeviewConfig } from '../model/treeview-config';
 import { TerminologyTreeviewItemTemplateContext } from '../model/terminology-treeview-item-template-context';
 import { TreeViewSelectHelperService } from '../services/tree-view-select-helper.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'edutr-terminology-tree-filter',
@@ -169,7 +170,8 @@ export class TerminologyTreeFilterComponent
     private injector: Injector,
     private cdr: ChangeDetectorRef,
     private overlayRegistry: OverlayRegistry,
-    private treeViewSelectHelperService: TreeViewSelectHelperService
+    private treeViewSelectHelperService: TreeViewSelectHelperService,
+    public translateService: TranslateService
   ) {
     super();
   }

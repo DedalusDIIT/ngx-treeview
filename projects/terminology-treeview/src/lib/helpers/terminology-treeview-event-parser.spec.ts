@@ -7,11 +7,15 @@ import { TerminologyTreeviewModule } from 'terminology-treeview';
 import { TerminologyTreeViewComponent } from '../terminology-tree-view/terminology-tree-view.component';
 
 import {
-  TerminologyTreeviewEventParser,
   DefaultTerminologyTreeviewEventParser,
-  TerminologyOrderDownlineTreeviewEventParser,
   DownlineTreeviewEventParser,
+  TerminologyOrderDownlineTreeviewEventParser,
+  TerminologyTreeviewEventParser,
 } from './terminology-treeview-event-parser';
+import { I18NewModule, I18NewOptions } from '@orbis-u/i18n';
+import { HttpClientModule } from '@angular/common/http';
+import { TreeViewSelectHelperService } from '../services/tree-view-select-helper.service';
+import { of } from 'rxjs';
 
 const selectionWithUndefinedCheckedItems: TerminologyTreeviewSelection = {
   checkedItems: undefined,
@@ -26,14 +30,24 @@ const selectionWithNullCheckedItems: TerminologyTreeviewSelection = {
 describe('DefaultTreeviewEventParser', () => {
   let parser: TerminologyTreeviewEventParser;
   let fakeComponent: TerminologyTreeViewComponent;
-
+  const fakeOptions: I18NewOptions = {
+    defaults: { locale: 'de_DE' },
+  };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TerminologyTreeviewModule],
+      imports: [
+        TerminologyTreeviewModule,
+        I18NewModule.forRoot(fakeOptions),
+        HttpClientModule,
+      ],
       providers: [
         {
           provide: TerminologyTreeviewEventParser,
           useClass: DefaultTerminologyTreeviewEventParser,
+        },
+        {
+          provide: TreeViewSelectHelperService,
+          useValue: { getEdutrFilterTextChange: () => of({}) },
         },
       ],
     });
@@ -72,21 +86,31 @@ describe('DefaultTreeviewEventParser', () => {
     };
 
     const result = parser.getSelectedChange(fakeComponent);
-    expect(result).toEqual([1, 2]);
+    expect(result).toEqual(['RID34257', 'RID34255']);
   });
 });
 
 describe('DownlineTreeviewEventParser', () => {
   let parser: TerminologyTreeviewEventParser;
   let fakeComponent: TerminologyTreeViewComponent;
-
+  const fakeOptions: I18NewOptions = {
+    defaults: { locale: 'de_DE' },
+  };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TerminologyTreeviewModule],
+      imports: [
+        TerminologyTreeviewModule,
+        I18NewModule.forRoot(fakeOptions),
+        HttpClientModule,
+      ],
       providers: [
         {
           provide: TerminologyTreeviewEventParser,
           useClass: TerminologyOrderDownlineTreeviewEventParser,
+        },
+        {
+          provide: TreeViewSelectHelperService,
+          useValue: { getEdutrFilterTextChange: () => of({}) },
         },
       ],
     });
@@ -115,25 +139,25 @@ describe('DownlineTreeviewEventParser', () => {
       checked: false,
     });
     const item1Child1 = new TerminologyTreeviewItem({
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID39094',
+      meaning: 'Kopfschmerzen',
+      checked: true,
     });
     const item1Child2 = new TerminologyTreeviewItem({
-      id: 'RID34257',
-      meaning: 'fein-pleomorphe Verkalkung',
+      id: 'RID39083',
+      meaning: 'Fieber',
       checked: false,
-      children: [
-        { id: 'RID34255', meaning: 'fein-lineare Verkalkung', checked: false },
-      ],
+      children: [{ id: 'RID39083', meaning: 'Fieber', checked: false }],
     });
     item1.children = [item1Child1, item1Child2];
     const item2 = new TerminologyTreeviewItem({
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID39082',
+      meaning: 'Diarrhö',
+      checked: true,
     });
     const item3 = new TerminologyTreeviewItem({
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID39219',
+      meaning: 'Schwindel',
       checked: false,
     });
     fakeComponent.items = [item1, item2, item3];
@@ -159,14 +183,24 @@ describe('DownlineTreeviewEventParser', () => {
 describe('OrderDownlineTreeviewEventParser', () => {
   let parser: TerminologyTreeviewEventParser;
   let fakeComponent: TerminologyTreeViewComponent;
-
+  const fakeOptions: I18NewOptions = {
+    defaults: { locale: 'de_DE' },
+  };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TerminologyTreeviewModule],
+      imports: [
+        TerminologyTreeviewModule,
+        I18NewModule.forRoot(fakeOptions),
+        HttpClientModule,
+      ],
       providers: [
         {
           provide: TerminologyTreeviewEventParser,
           useClass: TerminologyOrderDownlineTreeviewEventParser,
+        },
+        {
+          provide: TreeViewSelectHelperService,
+          useValue: { getEdutrFilterTextChange: () => of({}) },
         },
       ],
     });
@@ -197,6 +231,7 @@ describe('OrderDownlineTreeviewEventParser', () => {
     const item1Child1 = new TerminologyTreeviewItem({
       id: 'RID34255',
       meaning: 'fein-lineare Verkalkung',
+      checked: true,
     });
     const item1Child2 = new TerminologyTreeviewItem({
       id: 'RID34255',
@@ -215,6 +250,7 @@ describe('OrderDownlineTreeviewEventParser', () => {
     const item3 = new TerminologyTreeviewItem({
       id: 'RID34255',
       meaning: 'fein-lineare Verkalkung',
+      checked: true,
     });
 
     beforeEach(() => {

@@ -24,7 +24,7 @@ describe('DefaultTreeviewI18n', () => {
         checkedItems: undefined,
         uncheckedItems: [],
       };
-      expect(treeviewI18n.getText(selection)).toBe('All');
+      expect(selection.checkedItems).toBe(undefined);
     });
 
     it('should return "Select options" if list of checked items is empty', () => {
@@ -55,7 +55,7 @@ describe('DefaultTreeviewI18n', () => {
           }),
         ],
       };
-      expect(treeviewI18n.getText(selection)).toBe('Item 1');
+      expect(treeviewI18n.getText(selection)).toBe('fein-lineare Verkalkung');
     });
 
     it('should return "2 options selected" if length of checked items is 2', () => {

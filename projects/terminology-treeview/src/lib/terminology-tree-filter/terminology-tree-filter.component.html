@@ -16,7 +16,9 @@
     tabindex="-1"
     [(ngModel)]="edutrFilterText"
     (ngModelChange)="onFilterTextChange($event)"
-    [placeholder]="(edutrReadOnly ? null : edutrPlaceholder) | i18n"
+    [placeholder]="
+      translateService.instant(edutrReadOnly ? null : edutrPlaceholder)
+    "
     [readonly]="edutrReadOnly || isMaxSelectionCountReached()"
     [disabled]="edutrDisabled"
     [attr.aria-label]="''"
