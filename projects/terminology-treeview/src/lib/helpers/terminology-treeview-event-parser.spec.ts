@@ -231,27 +231,25 @@ describe('OrderDownlineTreeviewEventParser', () => {
       checked: false,
     });
     const item1Child1 = new TerminologyTreeviewItem({
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID39094',
+      meaning: 'Kopfschmerzen',
       checked: true,
     });
     const item1Child2 = new TerminologyTreeviewItem({
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID39083',
+      meaning: 'Fieber',
       checked: false,
-      children: [
-        { id: 'RID34255', meaning: 'fein-lineare Verkalkung', checked: false },
-      ],
+      children: [{ id: 'RID39083', meaning: 'Fieber', checked: false }],
     });
     item1.children = [item1Child1, item1Child2];
     const item2 = new TerminologyTreeviewItem({
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID39082',
+      meaning: 'Diarrhö',
       checked: false,
     });
     const item3 = new TerminologyTreeviewItem({
-      id: 'RID34255',
-      meaning: 'fein-lineare Verkalkung',
+      id: 'RID39219',
+      meaning: 'Schwindel',
       checked: true,
     });
 
