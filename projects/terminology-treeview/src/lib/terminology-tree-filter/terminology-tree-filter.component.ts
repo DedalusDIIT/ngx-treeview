@@ -301,11 +301,25 @@ export class TerminologyTreeFilterComponent
       (event.key === 'Tab' || event.key === 'Enter')
     ) {
       event.preventDefault();
+      //TODO handle tab events
       if (
         !this.edutrActive.disabled
         // && !(event.key === 'Tab' && this.isOptionSelected(this.edutrActive))
       ) {
         // this.selectOption(this.edutrActive);
+      }
+      if (
+        !this.edutrActive.disabled &&
+        event.key === 'Enter' &&
+        !this.isOptionSelected(this.edutrActive) &&
+        this.edutrFilterText.length > 3
+      ) {
+        this.onEdutrItemClicked(
+          new TerminologyTreeviewItem({
+            meaning: this.edutrFilterText,
+            id: undefined,
+          })
+        );
       }
     } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
@@ -313,6 +327,10 @@ export class TerminologyTreeFilterComponent
     } else if (event.key === 'Tab') {
       this.onBlur();
     }
+  }
+
+  isOptionSelected(edutrActive?: any): boolean {
+    return false;
   }
 
   showClearButton() {
@@ -339,7 +357,11 @@ export class TerminologyTreeFilterComponent
   }
 
   onEdutrItemClicked(item: TerminologyTreeviewItem | any) {
-    if (!this.selected?.find(i => item.id === i.id)) {
+    if (
+      !this.selected?.find(i =>
+        item.id ? item.id === i.id : item.meaning === i.meaning
+      )
+    ) {
       this.selected.push(item);
     }
     this.emitSelection();
@@ -423,6 +445,7 @@ export class TerminologyTreeFilterComponent
     }
   }
 
+  //TODO check necessity
   private showOptionsInViewContainerRef(showPanel: boolean) {
     // if (showPanel && !this.optionsPanel) {
     //   this.contentCreator(this.getExpandedOptionsVc());

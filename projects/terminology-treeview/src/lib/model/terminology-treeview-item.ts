@@ -7,7 +7,7 @@ export interface TerminologyTreeviewSelection {
 }
 
 export interface TerminologyTreeItem {
-  id: string;
+  id?: string;
   meaning: string;
   disabled?: boolean;
   checked?: boolean;
@@ -21,7 +21,7 @@ export class TerminologyTreeviewItem {
   private internalCollapsed = true;
   private internalChildren: TerminologyTreeviewItem[];
   meaning: string;
-  id: string;
+  id?: string;
 
   constructor(item: TerminologyTreeItem, autoCorrectChecked = false) {
     if (isNil(item)) {
