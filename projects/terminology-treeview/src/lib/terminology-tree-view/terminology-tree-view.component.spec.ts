@@ -22,7 +22,10 @@ describe('TerminologyTreeViewComponent', () => {
         },
         {
           provide: TreeViewSelectHelperService,
-          useValue: { getEdutrFilterTextChange: () => of({}) },
+          useValue: {
+            getEdutrFilterTextChange: () => of({}),
+            getEduTrBlur: () => of(false),
+          },
         },
       ],
     }).compileComponents();
