@@ -244,6 +244,7 @@ export class TerminologyTreeFilterComponent
     this.onTouched();
     this.inputFocused = false;
     this.enableVirtualKeyboard();
+    this.treeViewSelectHelperService.updateEduTrBlur(true);
   }
 
   private contains(eventTarget?: EventTarget): boolean {
@@ -297,30 +298,32 @@ export class TerminologyTreeFilterComponent
     } else if (this.edutrActive && event.key === 'ArrowRight') {
       event.preventDefault();
     } else if (
-      this.edutrActive &&
-      (event.key === 'Tab' || event.key === 'Enter')
+      // this.edutrActive &&
+      event.key === 'Tab' ||
+      event.key === 'Enter'
     ) {
       event.preventDefault();
-      //TODO handle tab events
       if (
-        !this.edutrActive.disabled
-        // && !(event.key === 'Tab' && this.isOptionSelected(this.edutrActive))
-      ) {
-        // this.selectOption(this.edutrActive);
-      }
-      if (
-        !this.edutrActive.disabled &&
         event.key === 'Enter' &&
         !this.isOptionSelected(this.edutrActive) &&
-        this.edutrFilterText.length > 3
+        this.edutrFilterText.length > 1
       ) {
         this.onEdutrItemClicked(
           new TerminologyTreeviewItem({
             meaning: this.edutrFilterText,
             id: undefined,
-          })
+          }),
+          true
         );
       }
+      //TODO handle tab events
+      // if (
+      //   !this.edutrActive.disabled &&
+      //   event.key === 'Tab'
+      // && !(event.key === 'Tab' && this.isOptionSelected(this.edutrActive))
+      // ) {
+      // this.selectOption(this.edutrActive);
+      // }
     } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
     } else if (event.key === 'Escape') {
@@ -356,14 +359,19 @@ export class TerminologyTreeFilterComponent
     this.edutrSelectedChange.emit(this.selected);
   }
 
-  onEdutrItemClicked(item: TerminologyTreeviewItem | any) {
+  onEdutrItemClicked(
+    item: TerminologyTreeviewItem | any,
+    isKeyboardInput: boolean = false
+  ) {
     if (
       !this.selected?.find(i =>
         item.id ? item.id === i.id : item.meaning === i.meaning
       )
     ) {
       this.selected.push(item);
+      this.onBlur();
     }
+    this.edutrFilterText = '';
     this.emitSelection();
   }
 

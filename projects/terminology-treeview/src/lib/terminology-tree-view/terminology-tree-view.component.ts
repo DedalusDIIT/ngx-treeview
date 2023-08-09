@@ -88,7 +88,7 @@ export class TerminologyTreeViewComponent
 
   @Output() itemClicked = new EventEmitter<TerminologyTreeviewItem | any>();
 
-  subscription: Subscription;
+  subscriptions: Subscription[] = [];
   constructor(
     public i18n: TerminologyTreeviewI18n,
     private defaultConfig: TreeviewConfig,
@@ -117,14 +117,21 @@ export class TerminologyTreeViewComponent
   ngOnInit(): void {
     this.createHeaderTemplateContext();
     this.generateSelection();
-    this.subscription = this.treeViewSelectHelperService
-      .getEdutrFilterTextChange()
-      .subscribe(v => {
-        if (v.value) {
-          this.filterText = v.text;
-          this.updateFilterItems();
+    this.subscriptions.push(
+      this.treeViewSelectHelperService
+        .getEdutrFilterTextChange()
+        .subscribe(v => {
+          if (v.value) {
+            this.filterText = v.text;
+            this.updateFilterItems();
+          }
+        }),
+      this.treeViewSelectHelperService.getEduTrBlur().subscribe(v => {
+        if (v) {
+          this.onAllCollapseExpand();
         }
-      });
+      })
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -137,7 +144,7 @@ export class TerminologyTreeViewComponent
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    this.subscriptions?.forEach(subscription => subscription.unsubscribe());
   }
 
   onAllCollapseExpand(): void {
@@ -287,8 +294,6 @@ export class TerminologyTreeViewComponent
   }
 
   onTreeItemClick(item: TerminologyTreeviewItem): void {
-    if (!item.children || item.children.length === 0) {
-      this.itemClicked.emit(item);
-    }
+    this.itemClicked.emit(item);
   }
 }
