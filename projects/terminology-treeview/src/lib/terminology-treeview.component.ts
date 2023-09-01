@@ -56,7 +56,7 @@ export class TerminologyTreeviewComponent implements OnInit {
 
   mapSelectedItemsToTermTree() {
     if (this.edutrSelectedItems && this.edutrSelectedItems.length > 0) {
-      this.edutrSelectedItems.map((s, i) => {
+      this.edutrSelectedItems?.map((s, i) => {
         const termTreeItem = new TerminologyTreeviewItem({
           meaning: s.name,
           id: s.id,

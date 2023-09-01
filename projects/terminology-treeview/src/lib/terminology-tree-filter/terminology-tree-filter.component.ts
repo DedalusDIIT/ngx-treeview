@@ -31,7 +31,7 @@ import {
   isElementInvalid,
 } from '@orbis-u/components/input';
 import { NewSelectDisplayMode } from '@orbis-u/components/new-select';
-import { Subscription, take } from 'rxjs';
+import { Subject, take } from 'rxjs';
 import {
   OnChangeCallback,
   OnTouchedCallback,
@@ -161,8 +161,7 @@ export class TerminologyTreeFilterComponent
 
   /** @internal */
   protected onTouched: OnTouchedCallback = () => {};
-
-  private subscriptions: Subscription[] = [];
+  closeOverlaySubject: Subject<void> = new Subject<void>();
 
   constructor(
     private elementRef: ElementRef,
@@ -192,7 +191,6 @@ export class TerminologyTreeFilterComponent
 
   ngOnDestroy(): void {
     this.overlayRegistry.remove(this);
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -244,7 +242,7 @@ export class TerminologyTreeFilterComponent
     this.onTouched();
     this.inputFocused = false;
     this.enableVirtualKeyboard();
-    this.treeViewSelectHelperService.updateEduTrBlur(true);
+    this.edutrFilterText = '';
   }
 
   private contains(eventTarget?: EventTarget): boolean {
@@ -501,6 +499,7 @@ export class TerminologyTreeFilterComponent
         });
       this.overlayRef.close();
       this.overlayRef = undefined;
+      this.closeOverlaySubject.next();
     }
   }
 

@@ -21,7 +21,7 @@ import { TerminologyTreeviewEventParser } from '../helpers/terminology-treeview-
 import { isNil, includes } from 'lodash';
 import { TerminologyTreeviewHelper } from '../helpers/terminology-treeview-helper';
 import { TreeViewSelectHelperService } from '../services/tree-view-select-helper.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 class FilterTreeviewItem extends TerminologyTreeviewItem {
   private readonly refItem: TerminologyTreeviewItem;
@@ -75,6 +75,7 @@ export class TerminologyTreeViewComponent
   @Input() itemTemplate: TemplateRef<TerminologyTreeviewItemTemplateContext>;
   @Input() items: TerminologyTreeviewItem[];
   @Input() config: TreeviewConfig;
+  @Input() closeOverlayEvent: Observable<void> = new Observable<void>();
 
   @Output() selectedChange = new EventEmitter<any[]>();
   @Output() filterChange = new EventEmitter<string>();
@@ -126,11 +127,11 @@ export class TerminologyTreeViewComponent
             this.updateFilterItems();
           }
         }),
-      this.treeViewSelectHelperService.getEduTrBlur().subscribe(v => {
-        if (v) {
-          this.onAllCollapseExpand();
-        }
-      })
+      this.closeOverlayEvent.subscribe(v =>
+        setTimeout(() => {
+          this.collapseAll();
+        }, 0)
+      )
     );
   }
 
@@ -152,6 +153,10 @@ export class TerminologyTreeViewComponent
     this.filterItems.forEach(item =>
       item.setCollapsedRecursive(this.allItem.collapsed)
     );
+  }
+
+  collapseAll(): void {
+    this.filterItems.forEach(item => item.setCollapsedRecursive(true));
   }
 
   onFilterTextChange(text: string): void {

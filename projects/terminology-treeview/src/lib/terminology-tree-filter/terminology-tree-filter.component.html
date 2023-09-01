@@ -76,6 +76,7 @@
   <edutr-terminology-tree-view
     [items]="[edutrItems]"
     [config]="edutrConfig"
+    [closeOverlayEvent]="closeOverlaySubject"
     (selectedChange)="values = $event"
     (itemClicked)="onEdutrItemClicked($event)"></edutr-terminology-tree-view>
 </ng-template>
