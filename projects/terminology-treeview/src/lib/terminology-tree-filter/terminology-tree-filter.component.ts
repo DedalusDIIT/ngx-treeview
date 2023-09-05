@@ -242,7 +242,6 @@ export class TerminologyTreeFilterComponent
     this.onTouched();
     this.inputFocused = false;
     this.enableVirtualKeyboard();
-    this.edutrFilterText = '';
   }
 
   private contains(eventTarget?: EventTarget): boolean {
@@ -499,6 +498,7 @@ export class TerminologyTreeFilterComponent
         });
       this.overlayRef.close();
       this.overlayRef = undefined;
+      this.edutrFilterText = '';
       this.closeOverlaySubject.next();
     }
   }
