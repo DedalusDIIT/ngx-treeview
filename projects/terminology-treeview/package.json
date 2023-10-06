@@ -11,6 +11,6 @@
     "tslib": "^2.3.0"
   },
   "publishConfig": {
-    "registry": "https://diit-nex.eastus.cloudapp.azure.com/repository/orbisu-npm/"
+    "registry": "https://nexus.diit.health/repository/orbisu-npm/"
   }
 }
