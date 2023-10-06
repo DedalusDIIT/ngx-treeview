@@ -18,7 +18,7 @@ env:
 jobs:
   build_and_test:
     name: Build and publish
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, central-aks, ephemeral, diit-runner ]
     steps:
       - uses: actions/checkout@v3
 
